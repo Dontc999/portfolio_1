@@ -1,1 +1,88 @@
-<p>home works!</p>
+                        <!-- ...........................Pagination Component Begins here................................... -->
+                        <div *ngIf="membersCount > 0">
+                            <div *ngIf="membersList.length > 0 && !loading"
+                                class="row justify-content-center d-flex pb-5 pt-3">
+                                <div *ngIf="membersCount > 25" class="col-md-12 d-flex">
+                                    <ul class="pagination mx-auto" role="navigation" aria-label="Pagination">
+                                        <li class="arrow">
+                                            <a *ngIf="pager.currentPage === 1" type="button" class="disabled">
+                                                <app-svg-icon id="icon-arrow-left" class="page-icon"></app-svg-icon>
+                                            </a>
+                                            <a *ngIf="pager.currentPage !== 1" href="javascript:void(0)"
+                                                (click)="onPagination(pager.currentPage - 1)" type="button"
+                                                aria-label="View Previous page">
+                                                <app-svg-icon id="icon-arrow-left" class="page-icon">
+                                                </app-svg-icon>
+                                            </a>
+                                        </li>
+                                        <ng-container *ngIf="pager.totalPages <= 5">
+                                            <ng-container
+                                                *ngFor="let i of arr(pager.totalPages).fill(1); let ind = index">
+                                                <li>
+                                                    <a href="javascript:void(0)" (click)="onPagination(ind+1)"
+                                                        [class.text-dark]="(ind+1) === pager.currentPage"
+                                                        [class.no-underline]="(ind+1) === pager.currentPage"
+                                                        type="button"
+                                                        [attr.aria-current]="(ind+1) === pager.currentPage"
+                                                        attr.aria-label="Go to Page {{ind+1}}">
+                                                        {{ind+1}}
+                                                    </a>
+                                                </li>
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="pager.totalPages > 5">
+                                            <li *ngFor="let i of arr(this.displayPageSet)[0]; let ind = index">
+                                                <a href="javascript:void(0)" (click)="onPagination(i)"
+                                                    [class.text-dark]="i === pager.currentPage"
+                                                    [class.no-underline]="i === pager.currentPage" type="button"
+                                                    [attr.aria-current]="i === pager.currentPage"
+                                                    attr.aria-label="Go to Page {{i}}">
+                                                    {{i}}
+                                                </a>
+                                            </li>
+                                            <li *ngIf="arr(this.displayPageSet)[0][3] < (pager.totalPages-1)">
+                                                <a class="no-underline p-0">
+                                                    ...
+                                                </a>
+                                                <a href="javascript:void(0)" (click)="onPagination(pager.totalPages)"
+                                                    [class.text-dark]="pager.totalPages === pager.currentPage"
+                                                    [class.no-underline]="pager.totalPages === pager.currentPage"
+                                                    type="button"
+                                                    [attr.aria-current]="pager.totalPages === pager.currentPage"
+                                                    attr.aria-label="Go to Page {{pager.totalPages}}">
+                                                    {{pager.totalPages}}
+                                                </a>
+                                            </li>
+                                        </ng-container>
+                                        <li class="arrow">
+                                            <a *ngIf="!(pager.currentPage <= pager.totalPages -1)" type="button"
+                                                class="disabled">
+                                                <app-svg-icon id="icon-arrow-right" class="page-icon"></app-svg-icon>
+                                            </a>
+                                            <a *ngIf="(pager.currentPage <= pager.totalPages -1)"
+                                                href="javascript:void(0)" (click)="onPagination(pager.currentPage + 1)"
+                                                type="button" aria-label="View Next page">
+                                                <app-svg-icon id="icon-arrow-right" class="page-icon">
+                                                </app-svg-icon>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="showing font-regular grey-dark"
+                                    *ngIf="pager.currentPage * recordsPerPage < membersCount">
+                                    Showing Results
+                                    {{((pager.currentPage - 1) * recordsPerPage ) + 1}} –
+                                    {{pager.currentPage * recordsPerPage }} of
+                                    {{membersCount}}
+                                </div>
+                                <div class="showing font-regular grey-dark"
+                                    *ngIf="pager.currentPage * recordsPerPage >= membersCount">
+                                    Showing Results
+                                    {{((pager.currentPage - 1) * recordsPerPage ) + 1}} –
+                                    {{membersCount}}
+                                    of
+                                    {{membersCount}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ...........................Pagination Component Ends here................................... -->
