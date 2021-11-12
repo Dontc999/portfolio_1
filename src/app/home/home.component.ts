@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit {
     // }
   }
 
-  onPagination(pageNumber: number) {
-    this.pager.currentPage = pageNumber;
-    this.onSearchClick();
-  }
+  // onPagination(pageNumber: number) {
+  //   this.pager.currentPage = pageNumber;
+  //   this.onSearchClick();
+  // }
 }
